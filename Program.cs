@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Array_String
 {
@@ -90,7 +91,107 @@ namespace Array_String
             stringBuilder.Append("my friend");
             Console.WriteLine(stringBuilder);
             stringBuilder.Insert(5, " ");
-            Console.WriteLine(stringBuilder);           
+            Console.WriteLine(stringBuilder);
+
+            //advansed HW
+            
+            // 1.
+            var str_cons = Console.ReadLine();
+            var str_cons_1 = str_cons.ToCharArray();
+            Array.Reverse(str_cons_1);
+            var str_cons_2 = String.Join("", str_cons_1);
+            Console.WriteLine(str_cons_2);
+            
+            // 2.
+            var str_cons_3 = new StringBuilder(); 
+            int key, count = 0;
+            while ((key = Console.Read()) != 13)
+            {
+                if (++count > 20)
+                    break;                 
+                str_cons_3.Append((char)key);
+            }
+            if (str_cons_3.Length < 20)
+            {
+                int length = str_cons_3.Length;
+                for (int j = 0; j < 20 - length; j++)
+                    str_cons_3.Append("*");                
+            }
+            else
+                Console.WriteLine("This string has 20 characters");
+            Console.WriteLine(str_cons_3);
+
+            // 3.
+            var str_sons_4 = "We are living in a yellow submarine. We don't have anything else." +
+                " Inside the submarine is very tight. So we are drinking all the day. We will move out of it in 5 days.";
+            var countSubString = new Regex("in").Matches(str_sons_4).Count;
+            Console.WriteLine(countSubString);
+            
+            var builderStr_Cons_4 = str_sons_4;
+            string substring = "in";
+            var countSubString_1 = 0;           
+            while (builderStr_Cons_4.Length > 0)
+            {
+                var j = builderStr_Cons_4.IndexOf(substring);                
+                if (j >= 0)
+                {
+                    countSubString_1++;
+                    builderStr_Cons_4 = builderStr_Cons_4.Remove(0, j + substring.Length);
+                }
+                else
+                    break;                
+            }
+            Console.WriteLine(countSubString_1);
+
+            // 4.
+            int[] arr4 = new int[20];
+            AddArr4(arr4);
+
+            // 5.
+            int[] arr5 = new int[10];
+            int[] arr6 = new int[10];
+            int[] arr7 = new int[12];            
+            Program.ReadFromConsoleAndCompare(arr5, arr6);
+        }
+        public static void AddArr4(int[] arr)
+        {
+            for(int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = i * 5;
+                Console.WriteLine(arr[i]);
+            }
+        }
+        public static bool ReadFromConsoleAndCompare(int[] arr_1, int[] arr_2)
+        {
+            Console.WriteLine("Enter first Array's data");
+            Console.Clear();
+            for (int i = 0; i < arr_1.Length; i++)
+            {
+                var s = Console.ReadLine();
+                int.TryParse(s, out arr_1[i]);
+            }
+            Console.WriteLine("Enter second Array's data");
+            Console.Clear();
+            for (int i = 0; i < arr_2.Length; i++)
+            {
+                var s = Console.ReadLine();
+                int.TryParse(s, out arr_2[i]);
+            }
+            if (!arr_1.Length.Equals(arr_2.Length))
+            {
+                Console.WriteLine("Arrays are not equal");
+                return false;
+            }
+            for(int i = 0; i < arr_1.Length; i++)
+            {
+                if(arr_1[i] != arr_2[i])
+                {
+                    Console.WriteLine("Arrays are not equal");
+                    return false;
+                }                   
+            }
+            Console.WriteLine("Arrays are equal");
+            return true;  
         }
         public static void AddArr(int[] arr)
         {
