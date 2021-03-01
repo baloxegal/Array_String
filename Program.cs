@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Array_String
 {
@@ -62,6 +63,34 @@ namespace Array_String
                 }
             }
             Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+            //string
+            string str = "Salut";
+            Console.WriteLine(str);
+            var str_1 = "Noroc";
+            Console.WriteLine(str_1);            
+            var str_2 = str.Substring(2);            
+            Console.WriteLine(str_2);
+            var str_3 = str.Replace('t', 'd');
+            Console.WriteLine(str_3);
+            Console.WriteLine(str);
+            var str_4 = String.Concat(str, str_1);
+            Console.WriteLine(str_4);
+            var str_5 = str_4.Insert(5, " ");
+            Console.WriteLine(str_5);
+            var str_6 = str_5.Split(' ');
+            foreach(var a in str_6)
+                Console.WriteLine(a);
+            var str_7 = String.Join(" ", str_6);
+            Console.WriteLine(str_7);
+            
+            //stringbuilder
+            StringBuilder stringBuilder = new StringBuilder("Hello");
+            Console.WriteLine(stringBuilder);
+            stringBuilder.Append("my friend");
+            Console.WriteLine(stringBuilder);
+            stringBuilder.Insert(5, " ");
+            Console.WriteLine(stringBuilder);           
         }
         public static void AddArr(int[] arr)
         {
@@ -99,6 +128,6 @@ namespace Array_String
         public static void SortArr<T>(T[] arr)
         {
             Array.Sort(arr);
-        }             
+        }        
     }
 }
