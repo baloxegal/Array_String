@@ -120,6 +120,7 @@ namespace Array_String
             else
                 Console.WriteLine("This string has 20 characters");
             Console.WriteLine(str_cons_3);
+            Console.In.Close();
 
             // 3.
             var str_sons_4 = "We are living in a yellow submarine. We don't have anything else." +
@@ -148,10 +149,15 @@ namespace Array_String
             AddArr4(arr4);
 
             // 5.
-            int[] arr5 = new int[10];
-            int[] arr6 = new int[10];
-            int[] arr7 = new int[12];            
+            int[] arr5 = new int[4];
+            int[] arr6 = new int[4];
+            int[] arr7 = new int[6];            
             Program.ReadFromConsoleAndCompare(arr5, arr6);
+
+            // 6.
+            int[,] arr8 = new int[6, 6];
+            Program.AddArr(arr8);
+            Console.WriteLine(Program.SumDiagonals(arr8));
         }
         public static void AddArr4(int[] arr)
         {
@@ -164,17 +170,25 @@ namespace Array_String
         public static bool ReadFromConsoleAndCompare(int[] arr_1, int[] arr_2)
         {
             Console.WriteLine("Enter first Array's data");
-            Console.Clear();
             for (int i = 0; i < arr_1.Length; i++)
             {
                 var s = Console.ReadLine();
+                if(string.IsNullOrEmpty(s) || string.IsNullOrWhiteSpace(s))
+                {
+                    i--;
+                    continue;
+                }
                 int.TryParse(s, out arr_1[i]);
             }
-            Console.WriteLine("Enter second Array's data");
-            Console.Clear();
+            Console.WriteLine("Enter second Array's data");            
             for (int i = 0; i < arr_2.Length; i++)
             {
                 var s = Console.ReadLine();
+                if (string.IsNullOrEmpty(s) || string.IsNullOrWhiteSpace(s))
+                {
+                    i--;
+                    continue;
+                }
                 int.TryParse(s, out arr_2[i]);
             }
             if (!arr_1.Length.Equals(arr_2.Length))
@@ -193,6 +207,23 @@ namespace Array_String
             Console.WriteLine("Arrays are equal");
             return true;  
         }
+        public static int SumDiagonals(int[,] arr)
+        {
+            int sum = 0;
+            for (int i = 0, g = arr.GetLength(1) - 1; i < arr.GetLength(0); i++, g--)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    if(i == j)
+                        sum += arr[i, j];
+                    //if (i == j && i == g)
+                    //    continue;
+                    if (j == g)
+                        sum += arr[i, j];
+                }
+            }
+            return sum;
+        }
         public static void AddArr(int[] arr)
         {
             Random rand = new Random(DateTime.Now.Second);
@@ -209,7 +240,7 @@ namespace Array_String
             {
                 for (int j = 0; j < arr.GetLength(1); j++)
                 {
-                    arr[i, j] = rand.Next(100, 200);
+                    arr[i, j] = rand.Next(0, 10);
                     Console.WriteLine(arr[i, j]);
                 }
             }
